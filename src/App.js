@@ -47,11 +47,13 @@ class App extends Component {
     };
 
     deletePersonHandler = (personIndex) => {
-        // this method (without .slice()) works but is not advised because it can lead to
+        // this method (without .slice() in 4- line) works but is not advised because it can lead to
         // unpredictable apps this is because it manipulates the original list when a better
         // method would be to copy the original to a new set and manipulate that one.
-        // const persons = this.state.persons.slice();
+
+        // 4- const persons = this.state.persons.slice();
         const persons = [...this.state.persons]; // this is an ES6 method of creating a new array w/ another arrays data
+                                                    // this is otherwise known as updating the state immutably
         persons.splice(personIndex, 1);
         this.setState({persons: persons})
     };
