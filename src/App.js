@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person'
+import Radium from 'radium';
 
 class App extends Component {
     state = {
@@ -70,7 +71,11 @@ class App extends Component {
             font: 'inherit',
             border: '1x solid blue',
             padding: '8px',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            ':hover': {
+                backgroundColor: 'light-green',
+                color: 'black'
+            }
 
         };
 
@@ -92,7 +97,11 @@ class App extends Component {
             );
 
             //    to change CSS elements conditionally/ dynamically, one can add the change here at the end of the if statement
-            style.backgroundColor = 'red'
+            style.backgroundColor = 'red';
+            style[':hover'] = {
+                backgroundColor: 'salmon',
+                color: 'black'
+            }
         }
 
         const classes = [];
@@ -124,7 +133,7 @@ class App extends Component {
     }
 }
 
-export default App;
+export default Radium(App);
 
 /*
     // this method is the better method than the one below but can be shorted further to the one above
