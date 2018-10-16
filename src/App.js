@@ -27,7 +27,7 @@ class App extends Component {
     //     })
     // };
 
-    nameChangedHandler = ( event, id  ) => {
+    nameChangedHandler = (event, id) => {
         const personIndex = this.state.persons.findIndex(p => {
             return p.id === id;
         });
@@ -43,7 +43,7 @@ class App extends Component {
         const persons = [...this.state.persons];
         persons[personIndex] = person;
 
-        this.setState({ persons: persons});
+        this.setState({persons: persons});
     };
 
     deletePersonHandler = (personIndex) => {
@@ -53,7 +53,7 @@ class App extends Component {
 
         // 4- const persons = this.state.persons.slice();
         const persons = [...this.state.persons]; // this is an ES6 method of creating a new array w/ another arrays data
-                                                    // this is otherwise known as updating the state immutably
+        // this is otherwise known as updating the state immutably
         persons.splice(personIndex, 1);
         this.setState({persons: persons})
     };
@@ -65,7 +65,8 @@ class App extends Component {
 
     render() {
         const style = {
-            backgroundColor: 'white',
+            backgroundColor: 'green',
+            color: 'white',
             font: 'inherit',
             border: '1x solid blue',
             padding: '8px',
@@ -89,12 +90,24 @@ class App extends Component {
 
                 </div>
             );
+
+            //    to change CSS elements conditionally/ dynamically, one can add the change here at the end of the if statement
+            style.backgroundColor = 'red'
+        }
+
+        const classes = [];
+
+        if (this.state.persons.length <= 2) {
+            classes.push('red') // classes = ['red']
+        }
+        if (this.state.persons.length <= 1) {
+            classes.push('bold') // classes = ['red', 'bold']
         }
 
         return (
             <div className="App">
                 <h1>Hi, I'm a React App</h1>
-                <p>This is really working</p>
+                <p className={classes.join(' ')}>This is really working</p>
                 <button
                     style={style}
                     onClick={this.togglePersonsHandler}>Toggle Persons
