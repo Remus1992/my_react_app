@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import classes from './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
     state = {
@@ -52,12 +53,14 @@ class App extends Component {
             persons = (
                 <div>
                     {this.state.persons.map((person, index) => {
-                        return <Person
+                        // key is moved to ErrorBoundary because it needs to be on outermost element for MAP function
+                        return <ErrorBoundary key={person.id}>
+                            <Person
                             click={() => this.deletePersonHandler(index)}
                             name={person.name}
                             age={person.age}
-                            key={person.id}
-                            changed={(event) => this.nameChangedHandler(event, person.id)}/> // key is to allow react the ability to differentiate between person elements
+                            changed={(event) => this.nameChangedHandler(event, person.id)}/>
+                        </ErrorBoundary>
                     })}
 
                 </div>
@@ -70,10 +73,10 @@ class App extends Component {
         const assignedClasses = [];
 
         if (this.state.persons.length <= 2) {
-            assignedClasses.push( classes.red ) // classes = ['red']
+            assignedClasses.push(classes.red) // classes = ['red']
         }
         if (this.state.persons.length <= 1) {
-            assignedClasses.push( classes.bold ) // classes = ['red', 'bold']
+            assignedClasses.push(classes.bold) // classes = ['red', 'bold']
         }
 
         return (
