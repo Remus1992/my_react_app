@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person'
-import Radium from 'radium';
 
 class App extends Component {
     state = {
@@ -13,20 +12,6 @@ class App extends Component {
         otherState: "some other value",
         showPersons: false
     };
-
-    // No longer going to be used
-    // switchNameHandler = (newName) => {
-    //     //console.log('was clicked');
-    //     // DON'T DO THIS:  this.state.persons[0].name = "Maximilian"
-    //     // Shouldn't mutate state directly because React can't pick it up
-    //     this.setState({
-    //         persons: [
-    //             {name: newName, age: 28},
-    //             {name: "Manutastic", age: 29},
-    //             {name: "Megan", age: 26},
-    //         ]
-    //     })
-    // };
 
     nameChangedHandler = (event, id) => {
         const personIndex = this.state.persons.findIndex(p => {
@@ -48,13 +33,7 @@ class App extends Component {
     };
 
     deletePersonHandler = (personIndex) => {
-        // this method (without .slice() in 4- line) works but is not advised because it can lead to
-        // unpredictable apps this is because it manipulates the original list when a better
-        // method would be to copy the original to a new set and manipulate that one.
-
-        // 4- const persons = this.state.persons.slice();
         const persons = [...this.state.persons]; // this is an ES6 method of creating a new array w/ another arrays data
-        // this is otherwise known as updating the state immutably
         persons.splice(personIndex, 1);
         this.setState({persons: persons})
     };
@@ -72,10 +51,6 @@ class App extends Component {
             border: '1x solid blue',
             padding: '8px',
             cursor: 'pointer',
-            ':hover': {
-                backgroundColor: 'light-green',
-                color: 'black'
-            }
 
         };
 
@@ -96,12 +71,7 @@ class App extends Component {
                 </div>
             );
 
-            //    to change CSS elements conditionally/ dynamically, one can add the change here at the end of the if statement
             style.backgroundColor = 'red';
-            style[':hover'] = {
-                backgroundColor: 'salmon',
-                color: 'black'
-            }
         }
 
         const classes = [];
@@ -125,49 +95,7 @@ class App extends Component {
 
             </div>
         );
-        // "onClick" is only capitalized in this capacity for REACT
-        // don't put parentheses on the end of the function click event since that will call the function when loading
-        // instead what is being created is a "reference" to the function for later use
-        // return React.createElement('div', null, React.createElement('h1', null, 'Hi, I\'m a React App'))
-        // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\'m a React App'))
     }
 }
 
-export default Radium(App);
-
-/*
-    // this method is the better method than the one below but can be shorted further to the one above
-                    <Person
-                        name={this.state.persons[0].name}
-                        age={this.state.persons[0].age}/>
-                    <Person
-                        name={this.state.persons[1].name}
-                        age={this.state.persons[1].age}
-                        click={this.switchNameHandler.bind(this, 'Max')}
-                        changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
-
-                    <Person
-                        name={this.state.persons[2].name}
-                        age={this.state.persons[2].age}/>
-*/
-
-/*
-    //a different method (goes under button in JSX)
-    {
-        this.state.showPersons ? // this is creating an if/ else statement
-        //'this.state.showPersons === true ? React.createElement()' is also valid but is redundant
-        <div>
-            <Person
-                name={this.state.persons[0].name}
-                age={this.state.persons[0].age}/>
-            <Person
-                name={this.state.persons[1].name}
-                age={this.state.persons[1].age}
-                click={this.switchNameHandler.bind(this, 'Max')}
-                changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
-            <Person
-                name={this.state.persons[2].name}
-                age={this.state.persons[2].age}/>
-        </div> : null // this ':' is an 'else' statement in JSX
-    }
-*/
+export default App;
