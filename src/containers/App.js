@@ -56,6 +56,8 @@ class App extends Component {
         return (
             <div className={classes.App}>
                 <Cockpit
+                    // we do have a 'props' property already built by React (like setState) so 'this' is necessary
+                    appTitle={this.props.title}
                     showPersons={this.state.showPersons}
                     persons={this.state.persons}
                     clicked={this.togglePersonsHandler}/>
